@@ -43,6 +43,6 @@ private:
 	friend class Illustrator;
 	Image();
 	Image(std::string title_IN, Date date_of_creation_IN, Illustrator author_IN);
-	friend class Administartor;
+	friend class Administrator;
 	~Image();
 };
