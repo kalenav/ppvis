@@ -7,6 +7,7 @@ private:
 public:
 	Date();
 	Date(int day_in, int month_in, int year_in);
+	~Date();
 	int getDay();
 	int getMonth();
 	int getYear();

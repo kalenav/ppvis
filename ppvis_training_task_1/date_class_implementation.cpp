@@ -7,6 +7,7 @@ Date::Date(int day_in, int month_in, int year_in)
 	month = month_in;
 	year = year_in;
 }
+Date::~Date() {};
 
 int Date::getDay() { return day; }
 int Date::getMonth() { return month; }
