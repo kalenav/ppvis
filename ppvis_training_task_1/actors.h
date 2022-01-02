@@ -13,6 +13,8 @@ class Actor
 {
 private:
 	std::string name;
+public:
+	Actor(std::string name);
 };
 
 class Secretary : public Actor
@@ -22,6 +24,7 @@ private:
 	friend bool Catalog::recursiveSearchByAuthor(Actor author_IN, File* search_result);
 	friend bool Catalog::addFile(File file);
 public:
+	using Actor::Actor;
 	bool searchByTitle(std::string title_IN, File* search_result);
 	bool searchByAuthor(std::string title_IN, File* search_result);
 	bool addFileToCatalog(File file, Catalog catalog);
@@ -34,6 +37,7 @@ private:
 	friend void Document::setTitle(std::string new_title);
 	friend void Document::setText(std::string new_text);
 public:
+	using Actor::Actor;
 	Document createDocument(std::string title_IN, Date date_of_creation_IN, Writer author_IN, std::string text_IN);
 	void setDocumentTitle(Document document, std::string new_title);
 	void setDocumentText(Document document, std::string new_text);
@@ -48,6 +52,7 @@ private:
 	friend Image::Image(std::string title_IN, Date date_of_creation_IN, Illustrator author_IN);
 	friend Image::~Image();
 public:
+	using Actor::Actor;
 	Image createImage(std::string title_IN, Date date_of_creation_IN, Illustrator author_IN) {};
 	void deleteImage(Image img);
 	bool addImageToCatalog(Image img, Catalog catalog);
@@ -60,6 +65,7 @@ private:
 	friend Document::~Document();
 	friend Image::~Image();
 public:
+	using Actor::Actor;
 	void createCatalog(Catalog& parent);
 	void deleteDocument(Document document);
 	void deleteImage(Image img);
