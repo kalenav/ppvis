@@ -1,5 +1,5 @@
-#ifndef FILES_H_INCLUDED
-#define FILES_H_INCLUDED
+//#ifndef FILES_H_INCLUDED
+//#define FILES_H_INCLUDED
 
 #include <string>
 #include <vector>
@@ -8,17 +8,20 @@
 
 class File
 {
-private:
+protected:
+	File();
+
+	int type;
 	std::string title;
 	Date date_of_creation;
 	Actor author;
 public:
-	int getType();
+	virtual int getType();
 };
 
 class Document : public File
 {
-private:
+protected:
 	Document();
 
 	int type = 1;
@@ -40,7 +43,7 @@ public:
 
 class Image : public File
 {
-private:
+protected:
 	Image();
 
 	int type = 2;
@@ -51,4 +54,4 @@ private:
 	~Image();
 };
 
-#endif
+//#endif
