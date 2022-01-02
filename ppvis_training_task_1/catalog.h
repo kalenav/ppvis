@@ -14,6 +14,7 @@ private:
 	std::string name;
 	std::list<Catalog> children;
 	std::list<File> contents;
+	Catalog* parent;
 	bool recursiveSearchByTitle(std::string title_IN, File* search_result);
 	bool recursiveSearchByAuthor(Actor author_IN, File* search_result);
 	bool addFile(File file);
