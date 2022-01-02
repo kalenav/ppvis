@@ -3,6 +3,9 @@
 #include "date_class.h"
 #include "actors.h"
 
+// concerning friend classes: the use of interfaces would fit better here due to the privacy requirements in the task description, 
+// however I didn't find a way to implement constructors and destructors using interfaces
+
 class File
 {
 private:
