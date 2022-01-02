@@ -14,6 +14,7 @@ class Actor
 private:
 	std::string name;
 public:
+	Actor();
 	Actor(std::string name);
 };
 
@@ -61,7 +62,7 @@ public:
 class Administrator : public Actor
 {
 private:
-	friend Catalog::Catalog(Catalog& parent);
+	friend Catalog::Catalog(std::string name, Catalog& parent);
 	friend Document::~Document();
 	friend Image::~Image();
 public:

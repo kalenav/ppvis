@@ -1,5 +1,5 @@
-//#ifndef FILES_H_INCLUDED
-//#define FILES_H_INCLUDED
+#ifndef FILES_H_INCLUDED
+#define FILES_H_INCLUDED
 
 #include <string>
 #include <vector>
@@ -28,14 +28,17 @@ protected:
 	std::string text;
 	std::vector<Image> referenced_images;
 	void parseReferencedImages();
-	void parsePath();
+	std::vector<std::string> parsePathToImage(std::string path);
+	std::string getPath(std::string input, int startingIndex);
+	std::string scanUntilSlashOrEndOfPath(std::string input, int* index);
+	friend bool Catalog::recursiveSearchByTitle(std::string title_IN, File* search_result);
 
 	// writer's methods
 	Document(std::string title_IN, Date date_of_creation_IN, Writer author_IN, std::string text_IN);
 	void setTitle(std::string new_title);
 	void setText(std::string new_text);
 
-	// administrator's methods
+	// wrtier's and administrator's methods
 	~Document();
 public:
 	std::string getTitle();
@@ -55,4 +58,4 @@ protected:
 	~Image();
 };
 
-//#endif
+#endif
