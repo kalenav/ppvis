@@ -28,6 +28,7 @@ protected:
 	std::string text;
 	std::vector<Image> referenced_images;
 	void parseReferencedImages();
+	void parsePath();
 
 	// writer's methods
 	Document(std::string title_IN, Date date_of_creation_IN, Writer author_IN, std::string text_IN);
@@ -38,7 +39,7 @@ protected:
 	~Document();
 public:
 	std::string getTitle();
-	Writer getAuthor();
+	Actor getAuthor();
 };
 
 class Image : public File
