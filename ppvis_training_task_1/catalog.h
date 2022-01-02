@@ -9,7 +9,7 @@ class Catalog
 {
 private:
 	Catalog(); // this constructor will only be used once, for the main catalog
-	Catalog(Catalog& parent);
+	Catalog(std::string name, Catalog& parent);
 
 	std::string name;
 	std::list<Catalog> children;
