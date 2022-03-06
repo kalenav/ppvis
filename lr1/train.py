@@ -78,7 +78,7 @@ class Train():
         return self.curr_station_type
     
     def getCurrDestination(self):
-        return self.curr_station_type
+        return self.curr_destination
 
     def getCurrDistanceToDestination(self):
         return self.curr_distance_to_destination
