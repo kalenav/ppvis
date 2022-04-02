@@ -24,7 +24,7 @@ class PlayArea:
             train = self.trains[index]
             if(train.isEnRoute()):
                 speed = train.getLocomotive().getSpeed()
-                train.reduceServiceTimeLeftBy(speed)
+                train.getLocomotive().reduceServiceTimeLeftBy(speed)
                 if(train.getServiceTimeLeft() < 0):
                     train.disintegrate()
                     continue
