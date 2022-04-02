@@ -1,12 +1,9 @@
 class Station:
-    def __init__(self, id_IN, type_IN, adjacentInfo_IN):
+    def __init__(self, id_IN, type_IN):
         self.id = id_IN
         self.type = type_IN
         self.adjacent = []
         self.weights = []
-        for currAdjacent in adjacentInfo_IN:
-            self.adjacent.push(currAdjacent[0])
-            self.weights.push(currAdjacent[1])
 
     def getId(self):
         return self.id
@@ -24,3 +21,7 @@ class Station:
         for index in len(self.adjacent):
             if(self.adjacent[index] == adjacent):
                 return self.weights[index]
+
+    def addAdjacent(self, adjacent, weight):
+        self.adjacent.push(adjacent)
+        self.weights.push(weight)
