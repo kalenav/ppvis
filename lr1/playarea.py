@@ -20,7 +20,7 @@ class PlayArea:
         self.trains[index].setCurrDistanceToDestination(self.trains[index].getCurrStation().getLinkWeight(self.trains[index].getCurrDestination()))
 
     def nextTurn(self):
-        for index in len(self.trains):
+        for index in range(len(self.trains)):
             train = self.trains[index]
             if(train.isEnRoute()):
                 speed = train.getLocomotive().getSpeed()
