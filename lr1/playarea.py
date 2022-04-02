@@ -1,8 +1,8 @@
 #from train import Train
 
 class PlayArea:
-    def __init__(self, stations_graph_IN, trains_IN):
-        self.stations_graph = stations_graph_IN
+    def __init__(self, stations_IN, trains_IN):
+        self.stations = stations_IN
         self.trains = trains_IN
 
     def getStations(self):
