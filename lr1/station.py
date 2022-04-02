@@ -18,7 +18,7 @@ class Station:
         return False
 
     def getLinkWeight(self, adjacent):
-        for index in len(self.adjacent):
+        for index in range(len(self.adjacent)):
             if(self.adjacent[index] == adjacent):
                 return self.weights[index]
 
