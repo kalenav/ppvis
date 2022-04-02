@@ -89,3 +89,10 @@ class Train():
 
     def getServiceTimeLeft(self):
         return self.locomotive.getServiceTimeLeft()
+
+    def turnsLeftToDestination(self):
+        speed = self.locomotive.getSpeed()
+        turnsLeft = self.curr_distance_to_destination / speed
+        if(self.curr_distance_to_destination % speed != 0):
+            turnsLeft += 1
+        return turnsLeft
