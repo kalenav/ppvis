@@ -1,5 +1,3 @@
-#from train import Train
-
 class PlayArea:
     def __init__(self, stations_IN, trains_IN):
         self.stations = stations_IN
@@ -31,3 +29,9 @@ class PlayArea:
                 train.setCurrDistanceToDestination(train.getCurrDistanceToDestination() - speed)
                 if(train.getCurrDistanceToDestination() <= 0):
                     self.stopTrain(index)
+
+    def addTrain(self, train):
+        self.trains.append(train)
+
+    def addStation(self, station):
+        self.stations.append(station)
