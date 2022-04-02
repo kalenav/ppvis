@@ -8,7 +8,11 @@ class Train():
         for curr_carriage in carriages_IN:
             self.carriages.append(curr_carriage)
         self.path = path_IN.copy()
+        self.curr_station = path_IN[0]
         self.curr_station_in_path_index = 0
+        self.curr_destination = path_IN[1]
+        self.curr_distance_to_destination = self.curr_station.getLinkWeight(self.curr_destination)
+        self.en_route = False
         self.broken = False
 
     def setCurrStation(self, input):
