@@ -1,4 +1,5 @@
 from locomotive import Locomotive
+from math import ceil
 
 class Train():
 
@@ -91,8 +92,4 @@ class Train():
         return self.locomotive.getServiceTimeLeft()
 
     def turnsLeftToDestination(self):
-        speed = self.locomotive.getSpeed()
-        turnsLeft = self.curr_distance_to_destination / speed
-        if(self.curr_distance_to_destination % speed != 0):
-            turnsLeft += 1
-        return turnsLeft
+        return ceil(self.curr_distance_to_destination / self.locomotive.getSpeed())
