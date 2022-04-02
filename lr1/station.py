@@ -23,5 +23,5 @@ class Station:
                 return self.weights[index]
 
     def addAdjacent(self, adjacent, weight):
-        self.adjacent.push(adjacent)
-        self.weights.push(weight)
+        self.adjacent.append(adjacent)
+        self.weights.append(weight)
