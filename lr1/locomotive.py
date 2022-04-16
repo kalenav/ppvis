@@ -10,8 +10,8 @@ class Locomotive():
     def decreaseSpeedByOne(self):
         self.speed -= 1
 
-    def reduceServiceTimeLeftBy(self, input):
-        self.service_time_left -= input
+    def reduceServiceTimeLeftBy(self, reduceBy):
+        self.service_time_left -= reduceBy
 
     def getSpeed(self):
         return self.speed

@@ -14,8 +14,10 @@ class PlayArea:
 
     def stopTrain(self, index):
         self.trains[index].stop()
-        self.trains[index].setCurrStationType(self.trains[index].getCurrStation().getType())
-        self.trains[index].setCurrDistanceToDestination(self.trains[index].getCurrStation().getLinkWeight(self.trains[index].getCurrDestination()))
+        currStation = self.trains[index].getCurrStation()
+        currDestination = self.trains[index].getCurrDestination()
+        self.trains[index].setCurrStationType(currStation.getType())
+        self.trains[index].setCurrDistanceToDestination(currStation.getLinkWeight(currDestination))
 
     def nextTurn(self):
         for index in range(len(self.trains)):
