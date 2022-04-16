@@ -1,7 +1,7 @@
 class PlayArea:
-    def __init__(self, stations_IN, trains_IN):
-        self.stations = stations_IN
-        self.trains = trains_IN
+    def __init__(self, stations, trains):
+        self.stations = stations
+        self.trains = trains
 
     def getStations(self):
         return self.stations

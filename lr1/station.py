@@ -1,7 +1,7 @@
 class Station:
-    def __init__(self, id_IN, type_IN):
-        self.id = id_IN
-        self.type = type_IN
+    def __init__(self, id, type):
+        self.id = id
+        self.type = type
         self.adjacent = []
         self.weights = []
 

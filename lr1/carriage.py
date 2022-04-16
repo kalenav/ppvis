@@ -1,8 +1,8 @@
 class Carriage():
 
-    def __init__(self, is_cargo_IN, is_loaded_IN):
-        self.is_cargo = is_cargo_IN
-        self.is_loaded = is_loaded_IN
+    def __init__(self, is_cargo, is_loaded):
+        self.is_cargo = is_cargo
+        self.is_loaded = is_loaded
 
     def isCargo(self):
         return self.is_cargo

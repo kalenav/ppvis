@@ -3,15 +3,15 @@ from math import ceil
 
 class Train():
 
-    def __init__(self, locomotive_speed_IN, locomotive_service_time_left_IN, carriages_IN, path_IN):
-        self.locomotive = Locomotive(locomotive_speed_IN, locomotive_service_time_left_IN)
+    def __init__(self, locomotive_speed, locomotive_service_time_left, carriages, path):
+        self.locomotive = Locomotive(locomotive_speed, locomotive_service_time_left)
         self.carriages = []
-        for curr_carriage in carriages_IN:
+        for curr_carriage in carriages:
             self.carriages.append(curr_carriage)
-        self.path = path_IN.copy()
-        self.curr_station = path_IN[0]
+        self.path = path.copy()
+        self.curr_station = path[0]
         self.curr_station_in_path_index = 0
-        self.curr_destination = path_IN[1]
+        self.curr_destination = path[1]
         self.curr_distance_to_destination = self.curr_station.getLinkWeight(self.curr_destination)
         self.en_route = False
         self.broken = False

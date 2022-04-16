@@ -1,8 +1,8 @@
 class Locomotive():
 
-    def __init__(self, speed_IN, service_time_left_IN):
-        self.speed = speed_IN
-        self.service_time_left = service_time_left_IN
+    def __init__(self, speed, service_time_left):
+        self.speed = speed
+        self.service_time_left = service_time_left
 
     def increaseSpeedByOne(self):
         self.speed += 1
