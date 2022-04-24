@@ -9,23 +9,26 @@ class FileWriter:
         file = self.file
         stations = self.playarea.getStations()
         trains = self.playarea.getTrains()
-        file.write(str(len(stations)))
+        file.write(str(len(stations)) + '\n')
         for station in stations:
             if(len(station.adjacent) == 0):
                 continue
-            file.write(station.getId() + '(' + station.getType() + '): ')
+            toWrite = ''
+            toWrite += str(station.getId()) + '(' + str(station.getType()) + '): '
             for currAdjacentStation in station.adjacent:
-                file.write(currAdjacentStation.getId() + '(' + station.getLinkWeight(currAdjacentStation) + '), ')
-        file.write('_')
-        file.write(str(len(trains)))
+                toWrite += str(currAdjacentStation.getId()) + '(' + str(station.getLinkWeight(currAdjacentStation)) + '), '
+            file.write(toWrite[:(len(toWrite) - 2)] + '\n')
+        file.write('_\n')
+        file.write(str(len(trains)) + '\n')
         for train in trains:
-            file.write(train.getSpeed() + ', ' + train.getServiceTimeLeft() + ', (')
+            toWrite = ''
+            toWrite += str(train.getSpeed()) + ', ' + str(train.getServiceTimeLeft()) + ', ('
             for carriage in train.getCarriages():
-                file.write('Y' if carriage.isCargo() else 'N')
-                file.write('/')
-                file.write('Y' if carriage.isLoaded() else 'N')
-                file.write(', ')
-            file.write(', (')
+                toWrite += 'Y' if carriage.isCargo() else 'N'
+                toWrite += '/'
+                toWrite += 'Y' if carriage.isLoaded() else 'N'
+                toWrite += ', '
+            toWrite = toWrite[:(len(toWrite) - 2)] + ('), (')
             for station in train.getPath():
-                file.write(station.id + ', ')
-            file.write(')')
+                toWrite += str(station.id) + ', '
+            file.write(toWrite[:len(toWrite) - 2] + ')\n')

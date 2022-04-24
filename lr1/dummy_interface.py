@@ -26,6 +26,8 @@ trains = [train1, train2]
 
 playarea = PlayArea(stations, trains)
 
+fw = FileWriter('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt', playarea)
+
 while True:
     print("\nWhat would you like to do?")
     print("1. Show current play area state")
@@ -140,8 +142,8 @@ while True:
         playarea.nextTurn()
 
     elif(choice == 5):
+        fw.writePlayareaToFile()
         break
-
     else:
         inputFail()
             
