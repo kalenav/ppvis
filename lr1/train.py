@@ -61,6 +61,9 @@ class Train():
 
     def disintegrate(self):
         self.broken = True
+
+    def getSpeed(self):
+        return self.getLocomotive().getSpeed()
     
     def getLocomotive(self):
         return self.locomotive

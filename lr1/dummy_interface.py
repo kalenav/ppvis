@@ -2,6 +2,7 @@ from carriage import Carriage
 from train import Train
 from station import Station
 from playarea import PlayArea
+from file_writer import FileWriter
 
 def inputFail():
     print("This is not even a possible choice. What were you thinking? Will you ever be able to clear yourself from this shame? I certainly hope so. Anyway, please choose something from the list provided.")
