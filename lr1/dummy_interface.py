@@ -3,6 +3,7 @@ from train import Train
 from station import Station
 from playarea import PlayArea
 from file_writer import FileWriter
+from file_reader import FileReader
 
 def inputFail():
     print("This is not even a possible choice. What were you thinking? Will you ever be able to clear yourself from this shame? I certainly hope so. Anyway, please choose something from the list provided.")
@@ -25,8 +26,6 @@ train2 = Train(3, 200, [carriage2_1], [station2, station3])
 trains = [train1, train2]
 
 playarea = PlayArea(stations, trains)
-
-fw = FileWriter('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt', playarea)
 
 while True:
     print("\nWhat would you like to do?")
@@ -142,7 +141,9 @@ while True:
         playarea.nextTurn()
 
     elif(choice == 5):
-        fw.writePlayareaToFile()
+        fr = FileReader('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt')
+        fr.readPlayareaFromFile()
+        fw = FileWriter('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt', playarea)
         break
     else:
         inputFail()
