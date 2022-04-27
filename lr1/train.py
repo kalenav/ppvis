@@ -39,7 +39,7 @@ class Train():
         self.curr_station = self.curr_destination
         newDestinationIndex = (self.curr_station_in_path_index + 1) % len(self.path)
         self.curr_station_in_path_index = newDestinationIndex
-        self.curr_destination = self.path[newDestinationIndex]
+        self.curr_destination = self.path[(newDestinationIndex + 1) % len(self.path)]
 
     def load(self):
         for carriage in self.carriages:
