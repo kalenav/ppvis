@@ -143,7 +143,8 @@ while True:
     elif(choice == 5):
         fr = FileReader('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt')
         fr.readPlayareaFromFile()
-        fw = FileWriter('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt', playarea)
+        # fw = FileWriter('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt', playarea)
+        # fw.writePlayareaToFile()
         break
     else:
         inputFail()
