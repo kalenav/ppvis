@@ -15,6 +15,11 @@ class FileReader:
             index += 1
         return { 'integer': int(toConvert), 'finishedAt': index }
 
+    def __readCarriageInfo(self, string, index):
+        isCargo = string[index] == 'Y'
+        isLoaded = string[index + 2] == 'Y'
+        return { 'isCargo': isCargo, 'isLoaded': isLoaded  }
+
     def readPlayareaFromFile(self):
         inputFileSplit = self.file.read().split('_')
         if(inputFileSplit[0] == ''):
@@ -26,14 +31,13 @@ class FileReader:
         for line in stationsLines:
             currStationIdReadResult = self.__readIntUntilLimiter(line, 0, ['('])
             currStationId = currStationIdReadResult['integer']
-            currStationType = self.__readIntUntilLimiter(line, currStationIdReadResult['finishedAt'] + 1, [')'])['integer']
+            currStationType = int(line[currStationIdReadResult['finishedAt'] + 1])
             stations.append(Station(currStationId, currStationType))
 
         for line in stationsLines:
             currStationIdReadResult = self.__readIntUntilLimiter(line, 0, ['('])
             currStation = stations[currStationIdReadResult['integer'] - 1]
-            currStationTypeReadResult = self.__readIntUntilLimiter(line, currStationIdReadResult['finishedAt'] + 1, [')'])
-            currSymbolIndex = currStationTypeReadResult['finishedAt'] + 3
+            currSymbolIndex = currStationIdReadResult['finishedAt'] + 5
             while(currSymbolIndex < len(line)):
                 currAdjacentStationIdReadResult = self.__readIntUntilLimiter(line, currSymbolIndex, ['('])
                 currAdjacentStation = stations[currAdjacentStationIdReadResult['integer'] - 1]
@@ -43,3 +47,30 @@ class FileReader:
                 currSymbolIndex = currAdjacentStationLinkWeightReadResult['finishedAt'] + 3
                 currStation.addAdjacent(currAdjacentStation, currAdjacentStationLinkWeight)
 
+
+        trainsLines = inputFileSplit[1].strip().split('\n')
+        trains = []
+
+        for line in trainsLines:
+            trainSpeedReadResult = self.__readIntUntilLimiter(line, 0, [','])
+            trainSpeed = trainSpeedReadResult['integer']
+            trainServiceTimeLeftReadResult = self.__readIntUntilLimiter(line, trainSpeedReadResult['finishedAt'] + 2, [','])
+            trainServiceTimeLeft = trainServiceTimeLeftReadResult['integer']
+            currSymbolIndex = trainServiceTimeLeftReadResult['finishedAt'] + 3
+            carriages = []
+            currCarriageReadResult = self.__readCarriageInfo(line, currSymbolIndex)
+            carriages.append(Carriage(currCarriageReadResult['isCargo'], currCarriageReadResult['isLoaded']))
+            currSymbolIndex += 5
+            while(line[currSymbolIndex] != ' '):
+                currCarriageReadResult = self.__readCarriageInfo(line, currSymbolIndex)
+                carriages.append(Carriage(currCarriageReadResult['isCargo'], currCarriageReadResult['isLoaded']))
+                currSymbolIndex += 5
+            currSymbolIndex += 2
+            path = []
+            while(currSymbolIndex < len(line)):
+                currStationReadResult = self.__readIntUntilLimiter(line, currSymbolIndex, [',', ')'])
+                path.append(stations[currStationReadResult['integer'] - 1])
+                currSymbolIndex = currStationReadResult['finishedAt'] + 2
+            trains.append(Train(trainSpeed, trainServiceTimeLeft, carriages, path))
+
+        return PlayArea(stations, trains)

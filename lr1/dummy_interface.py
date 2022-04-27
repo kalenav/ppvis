@@ -8,24 +8,25 @@ from file_reader import FileReader
 def inputFail():
     print("This is not even a possible choice. What were you thinking? Will you ever be able to clear yourself from this shame? I certainly hope so. Anyway, please choose something from the list provided.")
 
-station1 = Station(1, 1)
-station2 = Station(2, 1)
-station3 = Station(3, 0)
-station1.addAdjacent(station2, 3)
-station2.addAdjacent(station1, 5)
-station2.addAdjacent(station3, 10)
-station3.addAdjacent(station2, 1)
-stations = [station1, station2, station3]
+# station1 = Station(1, 1)
+# station2 = Station(2, 1)
+# station3 = Station(3, 0)
+# station1.addAdjacent(station2, 3)
+# station2.addAdjacent(station1, 5)
+# station2.addAdjacent(station3, 10)
+# station3.addAdjacent(station2, 1)
+# stations = [station1, station2, station3]
 
-carriage1_1 = Carriage(True, True)
-carriage1_2 = Carriage(False, True)
-carriage2_1 = Carriage(False, True)
+# carriage1_1 = Carriage(True, True)
+# carriage1_2 = Carriage(False, True)
+# carriage2_1 = Carriage(False, True)
 
-train1 = Train(5, 500, [carriage1_1, carriage1_2], [station1, station2])
-train2 = Train(3, 200, [carriage2_1], [station2, station3])
-trains = [train1, train2]
+# train1 = Train(5, 500, [carriage1_1, carriage1_2], [station1, station2])
+# train2 = Train(3, 200, [carriage2_1], [station2, station3])
+# trains = [train1, train2]
 
-playarea = PlayArea(stations, trains)
+fr = FileReader('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt')
+playarea = fr.readPlayareaFromFile()
 
 while True:
     print("\nWhat would you like to do?")
@@ -141,8 +142,8 @@ while True:
         playarea.nextTurn()
 
     elif(choice == 5):
-        fr = FileReader('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt')
-        fr.readPlayareaFromFile()
+        # fr = FileReader('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt')
+        # fr.readPlayareaFromFile()
         # fw = FileWriter('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt', playarea)
         # fw.writePlayareaToFile()
         break
