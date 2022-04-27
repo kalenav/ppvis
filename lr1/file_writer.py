@@ -9,7 +9,6 @@ class FileWriter:
         file = self.file
         stations = self.playarea.getStations()
         trains = self.playarea.getTrains()
-        file.write(str(len(stations)) + '\n')
         for station in stations:
             if(len(station.adjacent) == 0):
                 continue
@@ -19,7 +18,6 @@ class FileWriter:
                 toWrite += str(currAdjacentStation.getId()) + '(' + str(station.getLinkWeight(currAdjacentStation)) + '), '
             file.write(toWrite[:(len(toWrite) - 2)] + '\n')
         file.write('_\n')
-        file.write(str(len(trains)) + '\n')
         for train in trains:
             toWrite = ''
             toWrite += str(train.getSpeed()) + ', ' + str(train.getServiceTimeLeft()) + ', ('
