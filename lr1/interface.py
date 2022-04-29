@@ -38,6 +38,7 @@ parser_unloadTrain.set_defaults(func=ui.unloadTrain)
 parser_nextTurn = subparsers.add_parser('next', help='Move to the next turn')
 parser_nextTurn.set_defaults(func=ui.nextTurn)
 
+
 args = parser.parse_args()
 callbackArgs = [playarea]
 if hasattr(args, 'id'):
