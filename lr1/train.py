@@ -10,6 +10,7 @@ class Train():
             self.carriages.append(curr_carriage)
         self.path = path.copy()
         self.curr_station = path[0]
+        self.curr_station_type = path[0].getType()
         self.curr_station_in_path_index = 0
         self.curr_destination = path[1]
         self.curr_distance_to_destination = self.curr_station.getLinkWeight(self.curr_destination)
