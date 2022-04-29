@@ -23,7 +23,7 @@ class FileReader:
     def readPlayareaFromFile(self):
         inputFileSplit = self.file.read().split('_')
         if(inputFileSplit[0] == ''):
-            return
+            return PlayArea([], [])
 
         stationsLines = inputFileSplit[0].strip().split('\n')
         stations = []
