@@ -67,10 +67,28 @@ class FileReader:
                 currSymbolIndex += 5
             currSymbolIndex += 2
             path = []
-            while(currSymbolIndex < len(line)):
+            while(True):
                 currStationReadResult = self.__readIntUntilLimiter(line, currSymbolIndex, [',', ')'])
                 path.append(stations[currStationReadResult['integer'] - 1])
                 currSymbolIndex = currStationReadResult['finishedAt'] + 2
-            trains.append(Train(trainSpeed, trainServiceTimeLeft, carriages, path))
+                if(line[currStationReadResult['finishedAt']] == ')'):
+                    break
+            currTrain = Train(trainSpeed, trainServiceTimeLeft, carriages, path)
+            currReadResult = self.__readIntUntilLimiter(line, currSymbolIndex, [','])
+            currTrain.setCurrStation(stations[currReadResult['integer'] - 1])
+            currSymbolIndex = currReadResult['finishedAt'] + 2
+            currReadResult = self.__readIntUntilLimiter(line, currSymbolIndex, [','])
+            currTrain.setCurrStationType(currReadResult['integer'])
+            currSymbolIndex = currReadResult['finishedAt'] + 2
+            currReadResult = self.__readIntUntilLimiter(line, currSymbolIndex, [','])
+            currTrain.setCurrDestination(stations[currReadResult['integer'] - 1])
+            currSymbolIndex = currReadResult['finishedAt'] + 2
+            currReadResult = self.__readIntUntilLimiter(line, currSymbolIndex, [','])
+            currTrain.setCurrDistanceToDestination(currReadResult['integer'])
+            currSymbolIndex = currReadResult['finishedAt'] + 2
+            if(line[currSymbolIndex] == 'Y'):
+                currTrain.send()
+            trains.append(currTrain)
+
 
         return PlayArea(stations, trains)
