@@ -1,3 +1,9 @@
+from station import Station
+from train import Train
+from carriage import Carriage
+from playarea import PlayArea
+from file_writer import FileWriter
+
 def inputFail():
     print("This is not even a possible choice. What were you thinking? Will you ever be able to clear yourself from this shame? I certainly hope so. Anyway, please choose something from the list provided.")
 
@@ -96,6 +102,9 @@ class UI():
         else:
             train.unload()
             print("Loaded carriages corresponding with current station type have been unloaded.")
+
+    def nextTurn(self, playarea):
+        playarea.nextTurn()
 
 # station1 = Station(1, 1)
 # station2 = Station(2, 1)
