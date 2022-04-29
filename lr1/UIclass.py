@@ -1,10 +1,3 @@
-from carriage import Carriage
-from train import Train
-from station import Station
-from playarea import PlayArea
-from file_writer import FileWriter
-from file_reader import FileReader
-
 def inputFail():
     print("This is not even a possible choice. What were you thinking? Will you ever be able to clear yourself from this shame? I certainly hope so. Anyway, please choose something from the list provided.")
 
@@ -120,6 +113,9 @@ class UI():
 # train1 = Train(5, 500, [carriage1_1, carriage1_2], [station1, station2])
 # train2 = Train(3, 200, [carriage2_1], [station2, station3])
 # trains = [train1, train2]
+
+# fw = FileWriter('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt', PlayArea(stations, trains))
+# fw.writePlayareaToFile()
 
 # fr = FileReader('E:\\Important\\uchoba\\ppvis\\lr1\\examples\\pa1.txt')
 # playarea = fr.readPlayareaFromFile()
