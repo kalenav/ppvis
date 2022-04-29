@@ -41,6 +41,7 @@ class Train():
         newDestinationIndex = (self.curr_station_in_path_index + 1) % len(self.path)
         self.curr_station_in_path_index = newDestinationIndex
         self.curr_destination = self.path[(newDestinationIndex + 1) % len(self.path)]
+        self.curr_distance_to_destination = self.curr_station.getLinkWeight(self.curr_destination)
 
     def load(self):
         for carriage in self.carriages:
