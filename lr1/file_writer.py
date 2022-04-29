@@ -29,4 +29,10 @@ class FileWriter:
             toWrite = toWrite[:(len(toWrite) - 2)] + ('), (')
             for station in train.getPath():
                 toWrite += str(station.id) + ', '
-            file.write(toWrite[:len(toWrite) - 2] + ')\n')
+            toWrite = toWrite[:len(toWrite) - 2] + '), '
+            toWrite += str(train.getCurrStation().getId()) + ', '
+            toWrite += str(train.getCurrStationType()) + ', '
+            toWrite += str(train.getCurrDestination().getId()) + ', '
+            toWrite += str(train.getCurrDistanceToDestination()) + ', '
+            toWrite += 'Y' if train.isEnRoute() else 'N'
+            file.write(toWrite + '\n')
