@@ -9,6 +9,7 @@ class Controller(App):
         super().__init__()
         self.storage = InMemoryStorage([])
         self.screen_manager = AppScreenManager()
+        self.skipping = 0
 
     def build(self):
         return self.screen_manager
@@ -25,6 +26,18 @@ class Controller(App):
     def delete_entry(self, params_obj):
         pass
 
+    def next(self):
+        if(len(self.storage.load()) - self.skipping < 10):
+            return
+        self.skipping += 10
+        self.display_table()
+    
+    def previous(self):
+        if(self.skipping - 10 < 0):
+            return
+        self.skipping -= 10
+        self.display_table()
+
     def load(self, filename):
         self.screen_manager.current_screen.display_table([])
         data = XMLStorage(filename[0]).load()
@@ -32,4 +45,4 @@ class Controller(App):
         self.display_table()
 
     def display_table(self):
-        self.screen_manager.current_screen.display_table(self.storage.load()[:10])
+        self.screen_manager.current_screen.display_table(self.storage.load()[(self.skipping):(self.skipping + 10)])
