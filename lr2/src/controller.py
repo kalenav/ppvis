@@ -1,6 +1,6 @@
 from kivy.app import App
 from view import AppScreenManager
-from storage import InMemoryStorage, XMLStorage
+from storage import InMemoryStorage, XMLStorage, XMLWriter
 from model import Student
 
 class Controller(App):
@@ -10,6 +10,7 @@ class Controller(App):
         self.storage = InMemoryStorage([])
         self.screen_manager = AppScreenManager()
         self.skipping = 0
+        self.saving = False
 
     def build(self):
         return self.screen_manager
@@ -43,6 +44,10 @@ class Controller(App):
         data = XMLStorage(filename[0]).load()
         self.storage.save(data)
         self.display_table()
+
+    def save(self, filename):
+        XMLWriter(filename[0]).write(self.storage.load())
+        self.saving = False
 
     def display_table(self):
         self.screen_manager.current_screen.display_table(self.storage.load()[(self.skipping):(self.skipping + 10)])
