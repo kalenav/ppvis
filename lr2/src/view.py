@@ -49,6 +49,12 @@ class NewEntryView(Screen):
         self.add_widget(AddEntryActionBar())
 
 
+class FilterView(Screen):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.add_widget(NewEntryPromptBlock())
+        self.add_widget(FilterActionBar())
+
 
 class AppScreenManager(ScreenManager):
 
@@ -57,6 +63,7 @@ class AppScreenManager(ScreenManager):
         self.add_widget(MainView(name='main'))
         self.add_widget(FileChooserView(name='file_choose'))
         self.add_widget(NewEntryView(name='new_entry'))
+        self.add_widget(FilterView(name='filter'))
         
 
 
@@ -106,6 +113,12 @@ class FileChooserActionBar(ActionBar):
 
 
 class AddEntryActionBar(ActionBar):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+
+class FilterActionBar(ActionBar):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
