@@ -1,6 +1,6 @@
 from kivy.app import App
 from view import AppScreenManager
-from storage import InMemoryStorage, XMLStorage, XMLWriter
+from storage import InMemoryStorage, XMLStorage
 from model import Student
 
 class Controller(App):
@@ -39,7 +39,11 @@ class Controller(App):
         return data
 
     def delete_entries(self, params_obj):
-        pass
+        CURR_FILTER_CONFIG = self.filter_config
+        TO_DELETE = self.find_entries(params_obj)
+        CURR = self.storage.load()
+        self.storage.save([stud for stud in CURR if not stud in TO_DELETE])
+        self.filter_config = CURR_FILTER_CONFIG
 
     def next(self):
         if(len(self.storage.load()) - self.skipping < 10):
@@ -60,7 +64,7 @@ class Controller(App):
         self.display_table(self.find_entries(None))
 
     def save(self, filename):
-        XMLWriter(filename[0]).write(self.storage.load())
+        XMLStorage(filename[0]).save(self.storage.load())
         self.saving = False
 
     def display_table(self, data):

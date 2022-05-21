@@ -56,6 +56,13 @@ class FilterView(Screen):
         self.add_widget(FilterActionBar())
 
 
+class DeleteView(Screen):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.add_widget(NewEntryPromptBlock())
+        self.add_widget(DeleteActionBar())
+
+
 class AppScreenManager(ScreenManager):
 
     def __init__(self, **kwargs):
@@ -64,6 +71,7 @@ class AppScreenManager(ScreenManager):
         self.add_widget(FileChooserView(name='file_choose'))
         self.add_widget(NewEntryView(name='new_entry'))
         self.add_widget(FilterView(name='filter'))
+        self.add_widget(DeleteView(name='delete'))
         
 
 
@@ -119,6 +127,12 @@ class AddEntryActionBar(ActionBar):
 
 
 class FilterActionBar(ActionBar):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        
+class DeleteActionBar(ActionBar):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

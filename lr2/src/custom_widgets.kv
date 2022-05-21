@@ -41,6 +41,12 @@
             on_press:
                 app.screen_manager.transition.direction = 'left'
                 app.screen_manager.current = 'filter'
+
+        ActionButton:
+            text: 'Delete'
+            on_press:
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'delete'
             
         ActionButton:
             text: 'Save'
@@ -127,3 +133,23 @@
                 app.screen_manager.transition.direction = 'right'
                 app.screen_manager.current = 'main'
                 app.display_table(app.find_entries(FILTER_CONFIG))
+
+<DeleteActionbar>:
+    pos: 0, 0
+    ActionView:
+        ActionPrevious:
+            title: 'return'
+            with_previous: True
+            on_press:
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+
+        ActionButton:
+            text: 'Confirm'
+            on_press:
+                PROMPT_BLOCK = app.screen_manager.current_screen.children[1]
+                FILTER_CONFIG = {'name': PROMPT_BLOCK.name.text, 'course': PROMPT_BLOCK.course.text, 'group': PROMPT_BLOCK.group.text, 'completed': PROMPT_BLOCK.completed.text, 'overall': PROMPT_BLOCK.overall.text, 'lang': PROMPT_BLOCK.lang.text}
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+                app.delete_entries(FILTER_CONFIG)
+                app.display_table(app.find_entries(None))
