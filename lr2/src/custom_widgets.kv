@@ -27,8 +27,14 @@
     pos: 0, 0
     ActionView:
         ActionPrevious:
-            title: 'the the'
+            title: ''
             with_previous: False
+
+        ActionButton:
+            text: 'Add entry'
+            on_press:
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'new_entry'
             
         ActionButton:
             text: 'Save'
@@ -58,7 +64,7 @@
     pos: 0, 0
     ActionView:
         ActionPrevious:
-            title: 'the the return'
+            title: 'return'
             with_previous: True
             on_press: 
                 app.screen_manager.transition.direction = 'right'
@@ -73,5 +79,24 @@
             size: self.size
     id: filechooser
     on_selection: 
+        app.screen_manager.transition.direction = 'right'
         app.screen_manager.current = 'main'
         app.load(filechooser.selection)
+
+<AddEntryActionBar>:
+    pos: 0, 0
+    ActionView:
+        ActionPrevious:
+            title: 'return'
+            with_previous: True
+            on_press:
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+
+        ActionButton:
+            text: 'Confirm'
+            on_press:
+                PROMPT_BLOCK = app.screen_manager.current_screen.children[1]
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+                app.add_entry(PROMPT_BLOCK.name.text, PROMPT_BLOCK.course.text, PROMPT_BLOCK.group.text, PROMPT_BLOCK.completed.text, PROMPT_BLOCK.overall.text, PROMPT_BLOCK.lang.text)
