@@ -10,6 +10,7 @@ class Controller(App):
         self.storage = InMemoryStorage([])
         self.screen_manager = AppScreenManager()
         self.skipping = 0
+        self.showing = 10
         self.saving = False
         self.filter_config = {}
 
@@ -44,17 +45,18 @@ class Controller(App):
         CURR = self.storage.load()
         self.storage.save([stud for stud in CURR if not stud in TO_DELETE])
         self.filter_config = CURR_FILTER_CONFIG
+        self.screen_manager.current_screen.change_misc_text(self.showing, True, len(TO_DELETE))
 
     def next(self):
-        if(len(self.storage.load()) - self.skipping < 10):
+        if(len(self.storage.load()) - self.skipping <= self.showing):
             return
-        self.skipping += 10
+        self.skipping += self.showing
         self.display_table(self.find_entries(None))
     
     def previous(self):
-        if(self.skipping - 10 < 0):
+        if(self.skipping - self.showing < 0):
             return
-        self.skipping -= 10
+        self.skipping -= self.showing
         self.display_table(self.find_entries(None))
 
     def load(self, filename):
@@ -68,7 +70,13 @@ class Controller(App):
         self.saving = False
 
     def display_table(self, data):
-        self.screen_manager.current_screen.display_table(data[(self.skipping):(self.skipping + 10)])
+        self.screen_manager.current_screen.display_table(data[(self.skipping):(self.skipping + self.showing)])
 
     def clear_filters(self):
         self.display_table(self.find_entries({}))
+
+    def change_shown_entries_quantity(self, quantity):
+        self.skipping = 0
+        self.showing = quantity
+        self.display_table(self.storage.load())
+        self.screen_manager.current_screen.change_misc_text(quantity, False, None)

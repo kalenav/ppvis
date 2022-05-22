@@ -23,6 +23,16 @@
             width: 2
             rectangle: self.x, self.y, self.width, self.height
 
+<MiscTextContainer>:
+    pos: 0, 50
+    size_hint: None, None
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
 <MainActionBar>:
     pos: 0, 0
     ActionView:
@@ -60,6 +70,12 @@
             on_press: 
                 app.screen_manager.transition.direction = 'left'
                 app.screen_manager.current = 'file_choose'
+
+        ActionButton:
+            text: 'Pagination'
+            on_press:
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'pagination'
 
         ActionButton:
             text: 'Clear Filters'
@@ -153,3 +169,21 @@
                 app.screen_manager.current = 'main'
                 app.delete_entries(FILTER_CONFIG)
                 app.display_table(app.find_entries(None))
+
+<ChangeShownEntriesQuantityActionBar>:
+    pos: 0, 0
+    ActionView:
+        ActionPrevious:
+            title: 'return'
+            with_previous: True
+            on_press:
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+
+        ActionButton:
+            text: 'Confirm'
+            on_press:
+                input = app.screen_manager.current_screen.children[2].text
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+                app.change_shown_entries_quantity(int(input))
