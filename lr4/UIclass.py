@@ -1,9 +1,3 @@
-from station import Station
-from train import Train
-from carriage import Carriage
-from playarea import PlayArea
-from file_writer import FileWriter
-
 class UI():
 
     def __init__(self):

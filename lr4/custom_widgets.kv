@@ -6,41 +6,114 @@
             with_previous: False
 
         ActionButton:
-            text: 'Print playarea state'
+            text: 'Show playarea state'
             on_press:
                 pass
 
         ActionButton:
-            text: 'Print train info'
+            text: 'Show train info'
             on_press:
-                pass
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'choose'
+                app.train_action = 'show'
 
         ActionButton:
             text: 'Send a train'
             on_press:
-                pass
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'choose'
+                app.train_action = 'send'
 
         ActionButton:
             text: 'Load a train'
             on_press:
-                pass
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'choose'
+                app.train_action = 'load'
 
         ActionButton:
             text: 'Unload a train'
             on_press:
-                pass
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'choose'
+                app.train_action = 'unload'
 
         ActionButton:
             text: 'Next turn'
             on_press:
-                pass
+                app.next_turn()
 
         ActionButton:
             text: 'Load from file'
             on_press:
-                pass
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'file'
+                app.saving = False
 
         ActionButton:
             text: 'Save to file'
             on_press:
-                pass
+                app.screen_manager.transition.direction = 'left'
+                app.screen_manager.current = 'file'
+                app.saving = True
+
+<TrainChooseActionBar>:
+    pos: 0, 0
+    ActionView:
+        ActionPrevious:
+            title: 'return'
+            with_previous: True
+            on_press:
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+        
+        ActionButton:
+            text: 'Confirm'
+            on_press:
+                ACTION = app.train_action
+                TRAIN_INDEX = int(app.screen_manager.current_screen.children[0].children[0].children[0].text)
+                if ACTION == 'show': app.show_train_info(TRAIN_INDEX)
+                elif ACTION == 'send': app.send_train(TRAIN_INDEX)
+                elif ACTION == 'load': app.load_train(TRAIN_INDEX)
+                elif ACTION == 'unload': app.unload_train(TRAIN_INDEX)
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+
+<FileChooserActionBar>:
+    pos: 0, 0
+    ActionView:
+        ActionPrevious:
+            title: 'return'
+            with_previous: True
+            on_press: 
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+
+<TrainChooseLayout>:
+    BoxLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size: 250, 30
+        size_hint: None, None
+        Label:
+            text: 'Train index:'
+            color: 0, 0, 0, 1
+            size: 150, 30
+            size_hint: None, None
+        TextInput:
+            size: 80, 30
+            size_hint: None, None
+
+<FileChooserIconView>:
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    id: filechooser
+    on_selection: 
+        app.screen_manager.transition.direction = 'right'
+        app.screen_manager.current = 'main'
+        if(app.saving): app.save(filechooser.selection[0])
+        else: app.load(filechooser.selection[0])
