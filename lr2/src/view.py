@@ -3,11 +3,11 @@ WHITE = (1, 1, 1, 1)
 BLACK = (0, 0, 0, 1)
 SINGLE_PAGE_MAX_ENTRY_COUNT = 10
 BOTTOM_PADDING = 50
-MISC_TEXT_BLOCK_WIDTH = 500
+MISC_TEXT_BLOCK_WIDTH = 800
 MISC_TEXT_BLOCK_HEIGHT = 40
-SHOWN_ENTRIES_LABEL_WIDTH = 220
+SHOWN_ENTRIES_LABEL_WIDTH = 800
 
-from tkinter.font import BOLD
+from functools import partial
 from typing import Text
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.boxlayout import BoxLayout
@@ -17,6 +17,7 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.actionbar import ActionBar
 from kivy.uix.filechooser import FileChooserIconView
+from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.lang import Builder
 from model import Student
@@ -36,8 +37,15 @@ class MainView(Screen):
         self.remove_widget(self.children[0])
         self.add_widget(Table(students), 0)
 
-    def change_shown_entries_text(self, quantity):
-        self.children[2].change_shown_entries_text(quantity)
+    def change_misc_text(self, quantity, deleted, deleted_quantity):
+        if deleted:
+            if deleted_quantity > 0:
+                self.children[2].change_misc_text(f'Showing {quantity} entries per page; Deleted {deleted_quantity} entries')
+            else:
+                self.children[2].change_misc_text(f'Showing {quantity} entries per page; no entries to delete were found')
+            Clock.schedule_once(lambda q: self.children[2].change_misc_text(f'Showing {quantity} entries per page'), 2)
+        else:
+            self.children[2].change_misc_text(f'Showing {quantity} entries per page')
 
 
 class FileChooserView(Screen):
@@ -212,10 +220,10 @@ class MiscTextContainer(StackLayout):
         self.orientation = 'lr-tb'
         self.size = (MISC_TEXT_BLOCK_WIDTH, MISC_TEXT_BLOCK_HEIGHT)
         self.add_widget(MiscTextEntryCountLabel())
-        self.change_shown_entries_text(quantity)
+        self.change_misc_text(f'Showing {quantity} entries per page')
 
-    def change_shown_entries_text(self, quantity):
-        self.children[0].text = f'Showing {quantity} entries per page'
+    def change_misc_text(self, text):
+        self.children[0].text = text
 
 
 class MiscTextEntryCountLabel(Label):
