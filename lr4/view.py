@@ -5,12 +5,14 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserIconView
+from kivy.uix.label import Label
 from kivy.core.window import Window
 from kivy.lang import Builder
 
 Builder.load_file("custom_widgets.kv")
 Window.clearcolor = (1, 1, 1, 1)
 
+BLACK = (0, 0, 0, 1)
 
 class AppScreenManager(ScreenManager):
 
@@ -26,6 +28,9 @@ class MainScreen(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.add_widget(MainActionBar())
+
+    def display_playarea_state(self, playarea_dict):
+        self.add_widget(PlayareaInfoLayout(playarea_dict))
 
 
 class TrainChooseScreen(Screen):
@@ -68,14 +73,41 @@ class TrainChooseLayout(AnchorLayout):
         super().__init__(**kwargs)
 
 
+class PlayareaInfoLayout(AnchorLayout):
+
+    def __init__(self, playarea_dict, **kwargs):
+        super().__init__(**kwargs)
+        self.add_widget(TrainsInfoLayout(playarea_dict['trains']))
+
+
 class TrainsInfoLayout(StackLayout):
 
-    def __init__(self, **kwargs):
+    def __init__(self, trains, **kwargs):
         super().__init__(**kwargs)
+        for train in trains:
+            self.add_widget(TrainInfoLayout(train))
 
 
 class TrainInfoLayout(BoxLayout):
 
-    def __init__(self, train, **kwargs):
+    def __init__(self, train_dict, **kwargs):
         super().__init__(**kwargs)
+        self.add_widget(BlackTextLabel(text=f'Current speed: {train_dict["speed"]}'))
+        self.add_widget(BlackTextLabel(text=f'Service time left: {train_dict["service"]}'))
+        CARRIAGES = train_dict['carriages']
+        self.add_widget(BlackTextLabel(text=f'{len(CARRIAGES)} carriage(s)'))
+        for index in range(len(CARRIAGES)):
+            CARRIAGE = CARRIAGES[index]
+            self.add_widget(BlackTextLabel(text=f'Carriage {index}: {"cargo" if CARRIAGE["is_cargo"] else "passenger"}, {"loaded" if CARRIAGE["is_loaded"] else "unloaded"}'))
+        path_str = ''
+        for station_id in train_dict['path']:
+            path_str += f'{station_id} '
+        self.add_widget(BlackTextLabel(text=f'Path: {path_str}'))
+
+
+class BlackTextLabel(Label):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.color = BLACK
         

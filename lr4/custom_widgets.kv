@@ -8,7 +8,9 @@
         ActionButton:
             text: 'Show playarea state'
             on_press:
-                pass
+                app.screen_manager.transition.direction = 'right'
+                app.screen_manager.current = 'main'
+                app.show_playarea_state()
 
         ActionButton:
             text: 'Show train info'
@@ -117,3 +119,23 @@
         app.screen_manager.current = 'main'
         if(app.saving): app.save(filechooser.selection[0])
         else: app.load(filechooser.selection[0])
+
+<TrainInfoLayout>:
+    orientation: 'vertical'
+    size: 250, 100
+    size_hint: None, None
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
+<TrainsInfoLayout>:
+    orientation: 'lr-tb'
+    anchor_x: 'left'
+    anchor_y: 'top'
+    size_hint: 1, 1
+
+<PlayareaInfoLayout>:
+    size_hint: 1, 1

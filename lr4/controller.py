@@ -23,6 +23,19 @@ class Controller(App):
     def show_playarea_state(self):
         if self.playarea == None:
             pass
+        PLAYAREA_DICT = {
+            'trains': list(map(lambda train: {
+                'speed': train.getSpeed(),
+                'service': train.getServiceTimeLeft(),
+                'carriages': list(map(lambda carriage: {
+                    'is_cargo': carriage.isCargo(),
+                    'is_loaded': carriage.isLoaded(),
+                }, train.getCarriages())),
+                'path': list(map(lambda station: station.getId(), train.getPath()))
+            }, self.playarea.getTrains())),
+            'stations': self.playarea.getStations(),
+        }
+        self.screen_manager.current_screen.display_playarea_state(PLAYAREA_DICT)
 
     def show_train_info(self, index):
         if self.playarea == None:
