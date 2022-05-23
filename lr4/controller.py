@@ -18,11 +18,12 @@ class Controller(App):
         return self.screen_manager
 
     def clear_screen(self):
-        self.screen_manager = AppScreenManager()
+        self.screen_manager.reset()
 
     def show_playarea_state(self):
         if self.playarea == None:
             pass
+        self.clear_screen()
         PLAYAREA_DICT = {
             'trains': list(map(lambda train: {
                 'speed': train.getSpeed(),
@@ -33,7 +34,11 @@ class Controller(App):
                 }, train.getCarriages())),
                 'path': list(map(lambda station: station.getId(), train.getPath()))
             }, self.playarea.getTrains())),
-            'stations': self.playarea.getStations(),
+            'stations': list(map(lambda station: {
+                'id': station.getId(),
+                'adjacent': list(map(lambda adjacent: adjacent.getId(), station.adjacent)),
+                'weights': list(map(lambda adjacent: station.getLinkWeight(adjacent), station.adjacent))
+            }, self.playarea.getStations())),
         }
         self.screen_manager.current_screen.display_playarea_state(PLAYAREA_DICT)
 

@@ -122,8 +122,8 @@
 
 <TrainInfoLayout>:
     orientation: 'vertical'
-    size: 250, 100
-    size_hint: None, None
+    width: 220
+    size_hint: None, 1
     canvas.before:
         Color:
             rgb: 0, 0, 0
@@ -133,9 +133,36 @@
 
 <TrainsInfoLayout>:
     orientation: 'lr-tb'
-    anchor_x: 'left'
-    anchor_y: 'top'
-    size_hint: 1, 1
+    size_hint: 1, 0.9
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
+<StationInfoLayout>:
+    orientation: 'vertical'
+    width: 150
+    size_hint: None, 1
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
+<StationsInfoLayout>:
+    orientation: 'lr-tb'
+    size_hint: 1, 0.1
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
 
 <PlayareaInfoLayout>:
+    orientation: 'vertical'
     size_hint: 1, 1
+    padding: 0, 0, 0, 50

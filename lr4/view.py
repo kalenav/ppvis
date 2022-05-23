@@ -18,6 +18,10 @@ class AppScreenManager(ScreenManager):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.reset()
+
+    def reset(self):
+        self.clear_widgets()
         self.add_widget(MainScreen(name='main'))
         self.add_widget(TrainChooseScreen(name='choose'))
         self.add_widget(FileChooserScreen(name='file'))
@@ -73,11 +77,12 @@ class TrainChooseLayout(AnchorLayout):
         super().__init__(**kwargs)
 
 
-class PlayareaInfoLayout(AnchorLayout):
+class PlayareaInfoLayout(BoxLayout):
 
     def __init__(self, playarea_dict, **kwargs):
         super().__init__(**kwargs)
         self.add_widget(TrainsInfoLayout(playarea_dict['trains']))
+        self.add_widget(StationsInfoLayout(playarea_dict['stations']))
 
 
 class TrainsInfoLayout(StackLayout):
@@ -103,6 +108,28 @@ class TrainInfoLayout(BoxLayout):
         for station_id in train_dict['path']:
             path_str += f'{station_id} '
         self.add_widget(BlackTextLabel(text=f'Path: {path_str}'))
+
+
+class StationsInfoLayout(StackLayout):
+
+    def __init__(self, stations, **kwargs):
+        super().__init__(**kwargs)
+        for station in stations:
+            self.add_widget(StationInfoLayout(station))
+
+
+class StationInfoLayout(BoxLayout):
+
+    def __init__(self, station, **kwargs):
+        super().__init__(**kwargs)
+        self.add_widget(BlackTextLabel(text=f'Id: {station["id"]}'))
+        adjacent_text = "Adjacent: "
+        for index in range(len(station['adjacent'])):
+            adjacent_text += f'{station["adjacent"][index]}({station["weights"][index]})'
+            if index < len(station['adjacent']) - 1:
+                adjacent_text += ','
+            adjacent_text += ' '
+        self.add_widget(BlackTextLabel(text=adjacent_text))
 
 
 class BlackTextLabel(Label):
