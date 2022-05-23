@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.screenmanager import Screen
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.stacklayout import StackLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserIconView
 from kivy.core.window import Window
 from kivy.lang import Builder
@@ -65,3 +66,16 @@ class TrainChooseLayout(AnchorLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+
+class TrainsInfoLayout(StackLayout):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+
+class TrainInfoLayout(BoxLayout):
+
+    def __init__(self, train, **kwargs):
+        super().__init__(**kwargs)
+        
