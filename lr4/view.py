@@ -36,6 +36,9 @@ class MainScreen(Screen):
     def display_playarea_state(self, playarea_dict):
         self.add_widget(PlayareaInfoLayout(playarea_dict))
 
+    def display_train_info(self, train_dict):
+        self.add_widget(MainScreenTrainInfoLayout(train_dict))
+
 
 class TrainChooseScreen(Screen):
     
@@ -137,4 +140,19 @@ class BlackTextLabel(Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.color = BLACK
-        
+
+
+class MainScreenTrainInfoLayout(TrainInfoLayout):
+
+    def __init__(self, train, **kwargs):
+        super().__init__(train, **kwargs)
+        en_route = train['en_route']
+        curr_station = train['curr_station']
+        curr_destination = train['curr_destination']
+        turns_left = train['turns_left']
+        train_info_str = 'Currently '
+        if en_route:
+            train_info_str += f'travelling to station {curr_destination}; {turns_left} turns left'
+        else:
+            train_info_str += f'waiting at station {curr_station}; next stop is station {curr_destination}'     
+        self.add_widget(BlackTextLabel(text=train_info_str))

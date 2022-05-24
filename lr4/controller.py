@@ -24,7 +24,18 @@ class Controller(App):
         if self.playarea == None:
             pass
         self.clear_screen()
-        PLAYAREA_DICT = {
+        PLAYAREA_DICT = self.get_playarea_dict()
+        self.screen_manager.current_screen.display_playarea_state(PLAYAREA_DICT)
+
+    def show_train_info(self, index):
+        if self.playarea == None:
+            pass
+        self.clear_screen()
+        PLAYAREA_DICT = self.get_playarea_dict()
+        self.screen_manager.current_screen.display_train_info(PLAYAREA_DICT['trains'][index])
+
+    def get_playarea_dict(self):
+        return {
             'trains': list(map(lambda train: {
                 'speed': train.getSpeed(),
                 'service': train.getServiceTimeLeft(),
@@ -32,7 +43,11 @@ class Controller(App):
                     'is_cargo': carriage.isCargo(),
                     'is_loaded': carriage.isLoaded(),
                 }, train.getCarriages())),
-                'path': list(map(lambda station: station.getId(), train.getPath()))
+                'path': list(map(lambda station: station.getId(), train.getPath())),
+                'en_route': train.isEnRoute(),
+                'curr_station': train.getCurrStation().getId(),
+                'curr_destination': train.getCurrDestination().getId(),
+                'turns_left': train.turnsLeftToDestination(),
             }, self.playarea.getTrains())),
             'stations': list(map(lambda station: {
                 'id': station.getId(),
@@ -40,11 +55,7 @@ class Controller(App):
                 'weights': list(map(lambda adjacent: station.getLinkWeight(adjacent), station.adjacent))
             }, self.playarea.getStations())),
         }
-        self.screen_manager.current_screen.display_playarea_state(PLAYAREA_DICT)
-
-    def show_train_info(self, index):
-        if self.playarea == None:
-            pass
+    
 
     def send_train(self, index):
         if self.playarea == None:
@@ -78,7 +89,7 @@ class Controller(App):
     def next_turn(self):
         if self.playarea == None:
             pass
-        self.ui.next_turn()
+        self.ui.next_turn(self.playarea)
 
     def load(self, filename):
         self.playarea = FileReader(filename).readPlayareaFromFile()
